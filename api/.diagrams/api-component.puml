@@ -1,0 +1,32 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+LAYOUT_WITH_LEGEND()
+
+title Component Diagram – API Application (ASP.NET Core)
+
+Container(spa, "Single Page Application", "JavaScript, React", "")
+Container(ma, "Mobile App", "C#, Xamarin", "")
+ContainerDb(db, "Database", "SQL", "")
+System_Ext(mbs, "Mainframe Banking System", "")
+
+Container_Boundary(api, "API Application") {
+    Component(accountsCtrl, "AccountsController", "C#, ASP.NET Core REST Controller", "Returns account summaries and transactions")
+    Component(profileCtrl, "ProfileController", "C#, ASP.NET Core REST Controller", "Allows customers to view and update profile information")
+
+    Component(mbsFacade, "BankingSystemFacade", "C# Class", "Encapsulates integration with the mainframe banking system")
+    Component(profileComponent, "ProfileService", "C# Class", "Handles business logic for user profile and preferences")
+
+    Rel(accountsCtrl, mbsFacade, "Uses")
+    Rel(profileCtrl, profileComponent, "Uses")
+
+    Rel(mbsFacade, mbs, "Fetches account and transaction data from", "XML/HTTPS")
+    Rel(profileComponent, db, "Reads/writes profile data", "SQL")
+}
+
+Rel(spa, accountsCtrl, "Calls", "JSON/HTTPS")
+Rel(spa, profileCtrl, "Calls", "JSON/HTTPS")
+
+Rel(ma, accountsCtrl, "Calls", "JSON/HTTPS")
+Rel(ma, profileCtrl, "Calls", "JSON/HTTPS")
+
+@enduml
