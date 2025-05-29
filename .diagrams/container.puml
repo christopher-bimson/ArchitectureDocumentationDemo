@@ -11,7 +11,7 @@ Person(customer, Customer, "A customer of the bank, with personal bank accounts"
 System_Boundary(c1, "Internet Banking") {
     Container(spa, "Single-Page App", "JavaScript, React", "Provides all the Internet banking functionality to customers via their web browser")
     Container(mobile_app, "Mobile App", "C#, Xamarin", "Provides a limited subset of the Internet banking functionality to customers via their mobile device")
-    Container(api, "API Application", "C#, .NET Core", "Provides Internet banking functionality via API")
+    Container(api, "[[./api-component.svg API Application]]", "C#, .NET Core", "Provides Internet banking functionality via API")
     ContainerDb(db, "Database", "SQL Database", "Stores user registration information, hashed auth credentials, access logs, etc.")
 }
 
